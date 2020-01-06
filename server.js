@@ -5,10 +5,11 @@ bodyParser = require('body-parser');
 
 let BD =  require('./api/config/configBDMongo');
 
+let LocalizacaoModel =  require('./api/models/LocalizacoesModel');
 let VeiculoModel =  require('./api/models/VeiculosModel');
 let UtilizadorModel =  require('./api/models/UtilizadoresModel');
 let EstacionamentoModel =  require('./api/models/EstacionamentosModel');
-//let LocalizacoesModel =  require('./api/models/LocalizacoesModel');
+let AluguerModel = require('./api/models/AlugueresModel');
 
 const passport = require('passport'); 
 require('./api/config/configPassport');
@@ -17,7 +18,6 @@ aplicacao.use(bodyParser.urlencoded({ extended:true }));
 aplicacao.use(bodyParser.json());
 
 aplicacao.use(passport.initialize());
-
 
 const jwt = require('express-jwt'); 
 const autenticacao = jwt({
@@ -43,17 +43,21 @@ aplicacao.use('/', (req, res, next) => {
       });
 
 // importar rotas
+
 var routesVeiculos =  require('./api/routes/veiculosRoutes'); 
+var routesLocalizacoes =  require('./api/routes/localizacoesRoutes'); 
 var routesAut =   require('./api/routes/autenticacaoRoutes'); 
 var routesUsers =   require('./api/routes/utilizadoresRoutes'); 
-//var routesLocalizacoes =   require('./api/routes/localizacoesRoutes'); 
 var routesEstacionamentos =   require('./api/routes/estacionamentosRoutes'); 
+var routesAlugueres =   require('./api/routes/alugueresRoutes'); 
+
 // registar as rotas
 routesAut(aplicacao);
 routesUsers(autenticacao, aplicacao);
 routesVeiculos(autenticacao, aplicacao);
-//routesLocalizacoes(autenticacao, aplicacao);
+routesLocalizacoes(autenticacao, aplicacao);
 routesEstacionamentos(autenticacao, aplicacao);
+routesAlugueres(autenticacao, aplicacao);
 
 aplicacao.listen(porta);
 

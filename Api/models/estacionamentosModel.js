@@ -1,6 +1,5 @@
 'use strict';
 var mongoose = require('mongoose');
-var LocalizacaoSchema = require('./localizacoesModel').schema;
 var Schema = mongoose.Schema;
 var EstacionamentosSchema = new Schema({
     nome: {
@@ -9,8 +8,13 @@ var EstacionamentosSchema = new Schema({
     },
     capacidade: {
         type: Number,
+        required: [true, "capacidade do parque"]
     },
-    localizacao: [LocalizacaoSchema]
+    cod_localizacao: {
+        type: Number, //[LocalizacaoSchema],
+        required: [true, "código da localização do parque"]
+    },
+   
 });
 
 module.exports = mongoose.model('Estacionamento', EstacionamentosSchema);

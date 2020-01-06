@@ -7,11 +7,12 @@ module.exports = function (auth, app) {
 
     // -- rota  /estacionamentos    métodos: GET, PUT
     app.route('/estacionamentos') 
-        .get(auth, estCtrl.lista_todos_estacionamentos);
+        .get(auth, estCtrl.lista_todos_estacionamentos)
+        .post(auth, estCtrl.novo_estacionamento);
            
-     // -- rota  /pesquisar_estacionamentos    métodos: GET
-     //app.route('/pesquisar_estacionamentos/:long/:lat')
-     //.get(auth, estCtrl.pesquisar_estacionamentos);
+    // -- rota  /pesquisar_estacionamentos    métodos: GET
+    //app.route('/pesquisar_estacionamentos/:long/:lat')
+    //.get(auth, estCtrl.pesquisar_estacionamentos);
 
     // -- rota  /estacionamento/:id    métodos: GET, PUT, DELETE
     app.route('/estacionamentos/:id')

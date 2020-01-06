@@ -1,6 +1,5 @@
 'use strict';
 var mongoose = require('mongoose');
-var LocalizacaoSchema = require('./localizacoesModel').schema;
 var Schema = mongoose.Schema;
 var LocalizacaoSchema = new Schema({
     codigo: {
@@ -13,17 +12,16 @@ var LocalizacaoSchema = new Schema({
     },
     rua: {
         type: String,
+        required: [true, 'rua']
     },
     zona: {
         type: String,
     },
     coordenadas: {
         type: {type: String},
-        coordinates: [Number]        
-    },
-    raio: {
-        type:Number,
-    },
+        coordinates: [Number]
+        //required: [true, 'coordenadas GPS da localização do parque']       
+    },    
 });
 
-module.exports = mongoose.model('Localizacao', LocalizacaoSchema);
+module.exports = mongoose.model('LocalizacoesModel', LocalizacaoSchema);

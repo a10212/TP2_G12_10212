@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const Estacionamento = mongoose.model('Estacionamento');
 const Utilizador = mongoose.model('Utilizador');
 
-
-
-
 // função auxiliar para obter o _id do utilizador a partir do JWT enviado no pedido
 const getUtilizador = (req, res, callback) => {
     if (req.payload && req.payload.username) { // validar que os dados do JWT estão no request
@@ -51,6 +48,26 @@ exports.lista_todos_estacionamentos = function (req, res) {
             
         });
     });
+};
+
+// ------------------------------------
+// insere um novo parque de estacionamento
+exports.novo_estacionamento = function (req, res) {
+    getUtilizador(req, res, 
+        (req, res, utilizadorId, utilizadorRole) => { 
+            if (utilizadorRole != 'administrador')
+                res.send({message: "User role does not allow this opperation."}).status(403);   
+            
+            var novo = new Estacionamento(req.body);
+            novo.save()
+                .then ( result => 
+                    {res.status(201).jsonp(novo)})
+                .catch(err => { res.status(201).jsonp({
+                    error: {message: err.message}
+                    })
+                });    
+        });
+   
 };
 
 

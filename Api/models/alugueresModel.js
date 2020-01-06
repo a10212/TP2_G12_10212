@@ -64,4 +64,4 @@ aluguerSchema.methods.gerarJwt = function () {
 
 // --------------------------------------------------
 // - export the aluguer Schema 
-module.exports = mongoose.model('aluguer', aluguerSchema);
+module.exports = mongoose.model('AlugueresModel', aluguerSchema);
