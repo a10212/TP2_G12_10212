@@ -16,11 +16,15 @@ module.exports = function (auth, app) {
 
      // checkin /checkout    métodos: POST
      app.route('/checkout/:id')       
-     .get(aluguer.checkout);
+        .get(aluguer.checkout);
 
     // -- rota /alugueres/:id
     app.route('/alugueres/:id')
         .get(aluguer.aluguer_por_id);
+        
+    // -- rota /custoatual/:id_aluguer
+    app.route('/custoatual/:id_aluguer')
+        .get(aluguer.custoAtualAluguer);
    
 
 };

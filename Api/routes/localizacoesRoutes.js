@@ -14,10 +14,10 @@ module.exports = function (auth, app) {
     app.route('/localizacoes/:long/:lat')
         .get(localizacao.pesquisar_localizacoes);
 
-    app.route('/:id_localizacao')
+    app.route('localizacoes/:id_localizacao')
         .get(localizacao.localizacoes_por_id);
 
-    app.route('/:codigo')
+    app.route('localizacoes/:codigo')
        .get(localizacao.localizacoes_por_codigo);
 
 };

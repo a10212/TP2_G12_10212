@@ -5,62 +5,72 @@ const Schema = mongoose.Schema;
 
 const aluguerSchema = new Schema({
     dataCheckin : {
-        type: Date,        
-        required: true
+        type: Date,
+        default: Date.now()
     }, 
     dataCheckout : {
-        type: Date,
+        type: Date
+    },
+    codVeiculo: {
+        type: String,
+        required: 'código do veiculo'
+    },
+    username: {
+        type: String,
         required: true
     },
-    nome: {
-        type: String,
-        required: 'nome do aluguer'
+    metodoAluguer: {
+        type: [ {type: String,
+                enum: ['minuto', 'hora', 'prePago1Hora', 'prePago2Horas', 'prePagoDia']
+                }],
+        default: ['hora']   
     },
-    email: {
-        type: String,
-        unique: true, 
-        required: true
+    precoEstimado: {
+        type: Number
     },
-    dadosPassword : {
-         type : { hash: String,
-                  salt: String }, 
-        required: true }
-} , {collection: 'alugueresCollection'}   );
+}  );
 // --------------------------------------------------
 // - definition of Schema Methods
 
-// ------------------------------
-// - setDadosPassword(password): Schema method to calcule the hash for a given password, and save
-// -
-const crypto = require('crypto');
-aluguerSchema.methods.setDadosPassword = function (textoPassword){
-    const saltUtilizado = crypto.randomBytes(16).toString('hex'); 
-    this.dadosPassword.salt = saltUtilizado;
-   this.dadosPassword.hash = crypto.pbkdf2Sync(textoPassword, saltUtilizado, 1000, 64,'sha512').toString('hex');
-   // console.log('hash: ', this.dadosPassword.hash);
-}; 
 
 // --------
-// - validarPassword(password): Schema method to validade a given password
-aluguerSchema.methods.validarPassword = function (password) {
-    const hash =  crypto.pbkdf2Sync(password, this.dadosPassword.salt, 1000, 64,'sha512').toString('hex');
-    return this.dadosPassword.hash === hash; ;
-};
+// - getTimeElapsed(): Schema method to calculate the time elapsed in minutes between now (or checkout date) and the checkin date
+aluguerSchema.methods.getTimeElapsed = function () {
+    var diff = 0;
+    //if (this.dataCheckout == null)
+    {
+        var now = new Date();
+        var checkin = this.dataCheckin;
+        console.log(now);
+        console.log(checkin);
+        diff = (now.getTime() - checkin.getTime());
+        //cosole.log(diff);
+    }
+    /*else
+    {
+        diff = this.dataCheckout.getTime() - this.dataCheckin.getTime();
+    }*/
+    return Math.round(diff / 60000); 
+}
 
 // --------
-// - gerarJwt(): Schema method to generate a JWT (Json web token)
-const jwt = require('jsonwebtoken');
-aluguerSchema.methods.gerarJwt = function () {
-    const validade = new Date();
-    validade.setDate(validade.getDate() + 7); 
-    return jwt.sign({ 
-            _id: this._id, 
-            username: this.username,
-            email: this.email, 
-            nome: this.nome, 
-            exp: parseInt(validade.getTime() / 1000, 10), 
-            }, 'esteEoSegredo' ); 
-};
+// - calculoCustoAtual(): Schema method to calculate the actual cost of the rent
+aluguerSchema.methods.calculoCustoAtual = function () {
+    
+    //constants declaration
+    const activationFee = 0.50; // 1€
+    const pricePerMin = 0.15; // 15 cents
+    var result = 0;
+
+    //check the payment method
+    if (this.metodoAluguer == "hora")
+    {       
+        result = activationFee + this.getTimeElapsed() * pricePerMin;        
+    }
+    
+    return result;
+};  
+
 
 // --------------------------------------------------
 // - export the aluguer Schema 

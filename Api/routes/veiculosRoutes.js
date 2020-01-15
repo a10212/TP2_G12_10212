@@ -14,7 +14,7 @@ module.exports = function (auth, app) {
     app.route('/veiculos/:long/:lat')
         .get(veiculo.pesquisar_veiculos);
 
-    app.route('/:id_veiculo')
+    app.route('/veiculos/:id_veiculo')
         .get(veiculo.pesquisar_por_id);
 
    
