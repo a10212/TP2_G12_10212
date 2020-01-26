@@ -131,7 +131,7 @@ exports.aprovar_registo = function (req, res) {
 // elimina um utilizador da base de dados
 exports.eliminar_um_utilizador = function (req, res) {
     getUtilizador(req, res, 
-        (req, res, utilizadorId) => { 
+        (req, res, utilizadorId, utilizadorRole) => { 
 
 
             Utilizador.remove({
@@ -142,7 +142,7 @@ exports.eliminar_um_utilizador = function (req, res) {
                 if (utilizadorRole == 'cliente')
                     res.send({message: "User role does not allow this opperation."}).status(403); 
                 if (utilizador)                  
-                    res.json({ message: 'utilizador eliminado' });
+                    res.json({ message: 'utilizador eliminado' }).status(200);
                 else {
                     res.json();
                     res.status(404);

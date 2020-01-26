@@ -13,7 +13,7 @@ module.exports = function (auth, app) {
     app.route('/aprovaregisto/:id') 
         .get(auth, userCtrl.aprovar_registo);
 
-    // -- rota  /utilizadores/:id    métodos: GET, PUT
+    // -- rota  /utilizadores/:id    métodos: GET, PUT, DELETE
     app.route('/utilizadores/:id')
         .get(auth, userCtrl.obtem_um_utilizador)
         .put(auth, userCtrl.alterar_um_utilizador)

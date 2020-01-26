@@ -32,7 +32,7 @@ const registar_utilizador = (req, res) => {
     utilizador.save((err) => {
         if (err) {
             res
-                .status(404)  
+                .status(403)  
                 .json(err);
         } else {
             const token = utilizador.gerarJwt(); 
@@ -62,7 +62,7 @@ const autenticar_credencias = (req, res) => {
                 token = utilizador.gerarJwt(); 
                 res
                  .status(200) 
-                 .json({token}); 
+                 .json({token, utilizador}); 
         } else { 
              res 
                 .status(401) 
