@@ -37,7 +37,7 @@ const registar_utilizador = (req, res) => {
         } else {
             const token = utilizador.gerarJwt(); 
             res 
-                .status(200) 
+                .status(202) 
                 .json({token}); 
         }
      });

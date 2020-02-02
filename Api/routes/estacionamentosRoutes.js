@@ -5,7 +5,7 @@ module.exports = function (auth, app) {
 
     // rotas definidas para a API Restful estacionamentos    
 
-    // -- rota  /estacionamentos    métodos: GET, PUT
+    // -- rota  /estacionamentos    métodos: GET, POST
     app.route('/estacionamentos') 
         .get(auth, estCtrl.lista_todos_estacionamentos)
         .post(auth, estCtrl.novo_estacionamento);

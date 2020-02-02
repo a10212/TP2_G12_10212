@@ -61,7 +61,7 @@ exports.custoAtualAluguer = function (req, res){
             var timeElapsed = aluguer.getTimeElapsed();
             var actualCost = aluguer.calculoCustoAtual();
             
-            result = {"aluguerId": aluguer._id, "checkin": aluguer.checkin, "timeElapsed":timeElapsed, "metodoAluguer":aluguer.metodoAluguer, "custoAtualAluguer":actualCost};
+            result = {"aluguerId": aluguer._id, "checkout": aluguer.checkout, "checkin": aluguer.checkin, "timeElapsed":timeElapsed, "metodoAluguer":aluguer.metodoAluguer, "custoAtualAluguer":actualCost};
  
         } catch (msg) {            
             res.status(401).json({"message": msg})

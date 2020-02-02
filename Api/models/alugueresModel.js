@@ -15,7 +15,7 @@ const aluguerSchema = new Schema({
         type: String,
         required: 'código do veiculo'
     },
-    username: {
+    userId: {
         type: String,
         required: true
     },
