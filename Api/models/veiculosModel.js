@@ -17,5 +17,5 @@ var VeiculosSchema = new Schema({
         coordinates: [Number]        
     }
 });
-
+VeiculosSchema.index({"localizacao": "2dsphere"});
 module.exports = mongoose.model('VeiculosModel', VeiculosSchema);

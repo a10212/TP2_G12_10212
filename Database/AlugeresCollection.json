@@ -1,0 +1,11 @@
+{"_id":{"$oid":"5e1cde66a1c9504af875b2dd"},"username":"cliente1","codVeiculo":"001","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1cde90a1c9504af875b2de"},"username":"cliente","codVeiculo":"001","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1cdf23383642492c44e7d0"},"username":"cliente","codVeiculo":"001","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1cdf3be60ac5459cd4bd31"},"username":"cliente","codVeiculo":"001","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1cdf4e2bc62952c4046be9"},"username":"cliente","codVeiculo":"001","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1ce06a3ff511224015f9ce"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1ce09f363a9255708aefb1"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1ce0c46129c35694ce8d73"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1ce0ef50ad5d35e0a9b1ee"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1ce153ca22644dd804f2e8"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e1ce17f8b9b731198b4c451"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"dataCheckin":{"$date":{"$numberLong":"1578951037098"}},"__v":{"$numberInt":"0"}}

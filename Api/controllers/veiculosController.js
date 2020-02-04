@@ -26,17 +26,17 @@ exports.novo_veiculo = function (req, res) {
         });    
 };
 
-// GET veiculos/:long/:lat?raio=200
+// GET veiculos/:lat/:long?raio=200
 exports.pesquisar_veiculos = function (req, res){
     let raio = 100; // valor por omissão
     if (req.query.raio){
         raio = req.query.raio
     }
-    Veiculo.find( {local: {
+    Veiculo.find( {localizacao: {
                         $near:{
                             $geometry : {
                                 type: "Point",
-                                coordinates: [req.params.long, req.params.lat]
+                                coordinates: [req.params.lat, req.params.long]
                             },
                             $maxDistance: raio
                         }

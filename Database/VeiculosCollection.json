@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5e39b8222e9aa43924ec9e3a"},"designacao":"trotinete","codigo":"56-HA-01","SOCBateria":{"$numberInt":"80"},"localizacao":{"type":"Point","coordinates":[{"$numberDouble":"41.70907053621283"},{"$numberDouble":"-8.619270622730255"}]},"__v":{"$numberInt":"0"}}

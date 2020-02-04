@@ -92,7 +92,7 @@ exports.alterar_um_utilizador = function (req, res) {
                 if (utilizadorRole != 'administrador')
                     res.send({message: "User role does not allow this opperation."}).status(403);        
                 if (utilizador){                    
-                    res.json(utilizador);
+                    res.json(utilizador).status(204);
                 } else {
                     res.json();
                     res.status(404);
@@ -142,7 +142,7 @@ exports.eliminar_um_utilizador = function (req, res) {
                 if (utilizadorRole == 'cliente')
                     res.send({message: "User role does not allow this opperation."}).status(403); 
                 if (utilizador)                  
-                    res.json({ message: 'utilizador eliminado' }).status(200);
+                    res.json({ message: 'utilizador eliminado' }).status(204);
                 else {
                     res.json();
                     res.status(404);

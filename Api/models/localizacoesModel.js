@@ -23,5 +23,5 @@ var LocalizacaoSchema = new Schema({
         //required: [true, 'coordenadas GPS da localização do parque']       
     },    
 });
-
+LocalizacaoSchema.index({"coordenadas": "2dsphere"});
 module.exports = mongoose.model('LocalizacoesModel', LocalizacaoSchema);

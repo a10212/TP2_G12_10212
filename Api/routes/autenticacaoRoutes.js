@@ -6,7 +6,7 @@ module.exports = function (app) {
     // rotas definidas para a API Restful autenticacao
     
     // -- rota  /registar  métodos: GET
-    app.route('/registar')
+    app.route('/utilizadores')
         .post(authCtrl.registar_utilizador);
 
     // -- rota  /login    métodos: POST  params: :username :password

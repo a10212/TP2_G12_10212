@@ -11,7 +11,7 @@ module.exports = function (auth, app) {
         .post(auth, estCtrl.novo_estacionamento);
            
     // -- rota  /pesquisar_estacionamentos    métodos: GET
-    //app.route('/pesquisar_estacionamentos/:long/:lat')
+    //app.route('/estacionamentos/:long/:lat')
     //.get(auth, estCtrl.pesquisar_estacionamentos);
 
     // -- rota  /estacionamento/:id    métodos: GET, PUT, DELETE

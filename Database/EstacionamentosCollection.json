@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e138d47a942291da041a6f7"},"nome":"IPCA - ESD","capacidade":{"$numberInt":"12"},"cod_localizacao":{"$numberInt":"0"},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e2772972ed7b36b142f81c9"},"nome":"IPCA - ESD","capacidade":{"$numberInt":"12"},"cod_localizacao":{"$numberInt":"0"},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e375db561dd4c61583d7619"},"nome":"IPCA - ESD","capacidade":{"$numberInt":"12"},"cod_localizacao":{"$numberInt":"0"},"__v":{"$numberInt":"0"}}

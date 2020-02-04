@@ -6,24 +6,21 @@ module.exports = function (auth, app) {
 
     // rotas definidas para a API Restful 
 
-    // -- rota  /alugueres    métodos: GET
-    app.route('/alugueres')
+    // -- rota  /reservas    métodos: GET, POST
+    app.route('/reservas')
         .get(aluguer.lista_todos_alugueres)    
-    
-    // checkin /checkin    métodos: POST
-    app.route('/checkin')       
-        .post(aluguer.checkin);
-
-     // checkin /checkout    métodos: POST
-     app.route('/checkout/:id')       
-        .get(aluguer.checkout);
+        .post(auth, aluguer.checkin);
 
     // -- rota /alugueres/:id
-    app.route('/alugueres/:id')
-        .get(aluguer.aluguer_por_id);
+    app.route('/reservas/:id')
+    .get(aluguer.aluguer_por_id);
+
+    // /checkout    métodos: POST
+    app.route('/reservas/:id/checkout')       
+        .get(aluguer.checkout);  
         
-    // -- rota /custoatual/:id_aluguer
-    app.route('/custoatual/:id_aluguer')
+    // -- rota /custoatual/:id/custoatual
+    app.route('/reservas/:id/custoatual')
         .get(aluguer.custoAtualAluguer);
    
 

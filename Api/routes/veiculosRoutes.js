@@ -11,7 +11,7 @@ module.exports = function (auth, app) {
         .get(veiculo.lista_todos_veiculos)
         .post(veiculo.novo_veiculo);
 
-    app.route('/veiculos/:long/:lat')
+    app.route('/veiculos/:lat/:long')
         .get(veiculo.pesquisar_veiculos);
 
     app.route('/veiculos/:id_veiculo')

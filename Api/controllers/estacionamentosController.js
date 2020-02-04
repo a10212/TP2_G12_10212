@@ -123,7 +123,7 @@ exports.alterar_um_estacionamento = function (req, res) {
 // elimina um parque de estacionamenbto da base de dados
 exports.eliminar_um_estacionamento = function (req, res) {
     getUtilizador(req, res, 
-        (req, res, utilizadorId) => { 
+        (req, res, utilizadorId, utilizadorRole) => { 
 
 
             Estacionamento.remove({

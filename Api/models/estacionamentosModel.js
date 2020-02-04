@@ -10,11 +10,11 @@ var EstacionamentosSchema = new Schema({
         type: Number,
         required: [true, "capacidade do parque"]
     },
-    cod_localizacao: {
-        type: Number, //[LocalizacaoSchema],
-        required: [true, "código da localização do parque"]
-    },
+    localizacao: {
+        type: {type: String},
+        coordinates: [Number]        
+    }
    
 });
-
+EstacionamentosSchema.index({"localizacao": "2dsphere"});
 module.exports = mongoose.model('Estacionamento', EstacionamentosSchema);

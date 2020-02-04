@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5e13990e81d9633c74753b90"},"codigo":{"$numberInt":"0"},"cidade":"Barcelos","rua":"Travessa do Carregal","coordenadas":{"type":"Point","coordinates":[{"$numberDouble":"-8.628299"},{"$numberDouble":"41.537577"}]},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e13b5276cf9723db882fd0f"},"codigo":{"$numberInt":"1"},"cidade":"Braga","rua":"Av. Dr. Frnacisco Pires Gonçalves","coordenadas":{"type":"Point","coordinates":[{"$numberDouble":"-8.419699"},{"$numberDouble":"41.542342"}]},"__v":{"$numberInt":"0"}}

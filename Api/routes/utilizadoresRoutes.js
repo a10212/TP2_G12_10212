@@ -7,8 +7,7 @@ module.exports = function (auth, app) {
 
     // -- rota  /utilizadores    métodos: GET
     app.route('/utilizadores') 
-        .get(auth, userCtrl.lista_todos_utilizadores);
-        
+        .get(auth, userCtrl.lista_todos_utilizadores);      
   
 
     // -- rota  /utilizadores/:id    métodos: GET, PUT, DELETE
@@ -17,7 +16,7 @@ module.exports = function (auth, app) {
         .put(auth, userCtrl.alterar_um_utilizador)
         .delete(auth, userCtrl.eliminar_um_utilizador);
 
-    // -- rota  /aprovaregisto    métodos: GET
-    app.route('/utilizadores/aprovaregisto/:id') 
+    // -- rota  /utilizadores/:id/aprovaregisto    métodos: GET
+    app.route('/utilizadores/:id/aprovaregisto') 
         .get(auth, userCtrl.aprovar_registo);
 };

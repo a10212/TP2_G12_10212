@@ -1,6 +1,34 @@
 'use strict';
 var mongoose = require('mongoose'),
     Aluguer = mongoose.model('AlugueresModel');
+    const Utilizador = mongoose.model('Utilizador');
+
+    // função auxiliar para obter o _id do utilizador a partir do JWT enviado no pedido
+const getUtilizador = (req, res, callback) => {
+    if (req.payload && req.payload.username) { // validar que os dados do JWT estão no request
+        Utilizador
+            .findOne({ username: req.payload.username }) // procurar um utilizador pelo seu "username"
+            .exec((err, utilizador) => {
+                if (!utilizador) {
+                    return res
+                        .status(404)
+                        .json({ "message": "Utilizador não encontrado!" });
+                } else if (err) {
+                    console.log(err);
+                    return res
+                        .status(404)
+                        .json(err);
+                }
+                // executar o "callback", indicando qual é o utilizador
+                callback(req, res, utilizador._id, utilizador.role); 
+            });
+    } else {
+        return res
+            .status(404)
+            .json({ "message": "Utilizador não encontrado!"  });
+    }
+};
+
 
 // GET alugueres/
 exports.lista_todos_alugueres = function (req, res) {
@@ -17,9 +45,11 @@ exports.lista_todos_alugueres = function (req, res) {
 };
 
 // POST checkin/
+
+
 exports.checkin = function (req, res) {
     var novo = new Aluguer();
-    novo.username = req.body.username;
+    novo.userId = req.body.userId;
     novo.codVeiculo = req.body.codVeiculo;
     novo.precoEstimado = 10;
 
@@ -30,6 +60,31 @@ exports.checkin = function (req, res) {
             error: {message: err.message}
             })
         });    
+};
+
+
+// checkin de uma reserva
+exports.checkin = function (req, res) {
+   
+    getUtilizador(req, res, 
+        (req, res, utilizadorId, utilizadorRole) => { 
+            var novo = new Aluguer();
+            novo.userId = utilizadorId;
+            novo.codVeiculo = req.body.codVeiculo;
+            novo.metodoAluguer = req.body.metodoAluguer;
+            novo.precoEstimado = 10;
+        
+            novo.save()
+                .then ( result => 
+                    {res.status(201).jsonp(novo)})
+                .catch(err => { res.status(201).jsonp({
+                    error: {message: err.message}
+                    })
+                });    
+
+    });
+
+   
 };
 
 
@@ -50,10 +105,10 @@ exports.aluguer_por_id = function (req, res){
 
 };
 
-// GET /custoatual/:id_aluguer
+// GET /custoatual/:id/custoatual
 exports.custoAtualAluguer = function (req, res){   
 
-    Aluguer.findById(req.params.id_aluguer, function (err, aluguer) {
+    Aluguer.findById(req.params.id, function (err, aluguer) {
         if (err)
             res.send(err);                 
             var result = "";
