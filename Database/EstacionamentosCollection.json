@@ -1,3 +1,2 @@
-{"_id":{"$oid":"5e138d47a942291da041a6f7"},"nome":"IPCA - ESD","capacidade":{"$numberInt":"12"},"cod_localizacao":{"$numberInt":"0"},"__v":{"$numberInt":"0"}}
-{"_id":{"$oid":"5e2772972ed7b36b142f81c9"},"nome":"IPCA - ESD","capacidade":{"$numberInt":"12"},"cod_localizacao":{"$numberInt":"0"},"__v":{"$numberInt":"0"}}
-{"_id":{"$oid":"5e375db561dd4c61583d7619"},"nome":"IPCA - ESD","capacidade":{"$numberInt":"12"},"cod_localizacao":{"$numberInt":"0"},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e39d709dc7c263ffcb94268"},"nome":"Parque 1","capacidade":{"$numberInt":"80"},"localizacao":{"type":"Point","coordinates":[{"$numberDouble":"41.70907053621283"},{"$numberDouble":"-8.619270622730255"}]},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e39d714dc7c263ffcb94269"},"nome":"Parque 2","capacidade":{"$numberInt":"23"},"localizacao":{"type":"Point","coordinates":[{"$numberDouble":"40.70907053621283"},{"$numberDouble":"-8.619270622730255"}]},"__v":{"$numberInt":"0"}}

@@ -9,3 +9,6 @@
 {"_id":{"$oid":"5e1ce0ef50ad5d35e0a9b1ee"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
 {"_id":{"$oid":"5e1ce153ca22644dd804f2e8"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"__v":{"$numberInt":"0"}}
 {"_id":{"$oid":"5e1ce17f8b9b731198b4c451"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"001","username":"cliente","metodoAluguer":["hora"],"dataCheckin":{"$date":{"$numberLong":"1578951037098"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e39bdc4a3d063501c104142"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"56-HA-00","userId":"5e077c144de4214f407d42c9","dataCheckin":{"$date":{"$numberLong":"1580842435548"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e39bdd4a3d063501c104143"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"56-HA-00","userId":"5e077c144de4214f407d42c9","dataCheckin":{"$date":{"$numberLong":"1580842435548"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5e39d786dc7c263ffcb9426a"},"precoEstimado":{"$numberInt":"10"},"codVeiculo":"56-HA-00","userId":"5e077c144de4214f407d42c9","dataCheckin":{"$date":{"$numberLong":"1580847758407"}},"__v":{"$numberInt":"0"}}

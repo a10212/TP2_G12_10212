@@ -1,0 +1,1108 @@
+openapi: 3.0.0
+info:
+  title: 10212 TP2 API
+  description: "\tThis is the API documentation of TP2 for Arquitetura de Sistemas"
+  contact:
+    email: a10212@alunos.ipca.pt
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/a10212/a10212_TP2/1.0.0
+  description: TP2 API
+- url: http://localhost:5000/
+  description: Local Server
+paths:
+  /login:
+    post:
+      summary: Login a user
+      description: Authenticates an user
+      operationId: autenticar_utilizador
+      requestBody:
+        description: New user to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoUtilizador'
+      responses:
+        "200":
+          description: User successful authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthInfo'
+        "401":
+          description: Unauthorized
+  /utilizadores:
+    get:
+      summary: gets all registeres users
+      description: Lista todos os utilizadores registados na base de dados
+      operationId: lista_todos_utilizadores
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Utilizador'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrador
+    post:
+      summary: register a new user
+      description: Adds an user to the system
+      operationId: registar_utilizador
+      requestBody:
+        description: New user to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoUtilizador'
+      responses:
+        "201":
+          description: item created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing item already exists
+  /utilizadores/{id}:
+    get:
+      summary: gets the user with matching id
+      description: get an user from its user id
+      operationId: obtem_um_utilizador
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Utilizador'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+    put:
+      summary: updates an user
+      description: Updates user info
+      operationId: alterar_um_utilizador
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered user to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: New user data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoUtilizador'
+      responses:
+        "200":
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Utilizador'
+        "400":
+          description: invalid input, object invalid
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrator
+    delete:
+      description: deletes an user
+      operationId: eliminar_um_utilizador
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered user to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: user deleted
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrator
+  /utilizadores/{id}/aprovaregisto:
+    get:
+      summary: approves the user registration
+      description: Aprova um registo de um utilizador
+      operationId: aprovaregisto/{id}
+      parameters:
+      - name: id
+        in: path
+        description: id of the register to approve
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Registo aprovado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Utilizador'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+  /veiculos:
+    get:
+      summary: gets all registered vehicles
+      description: Lista todos os veiculos registados na base de dados
+      operationId: lista_todos_veiculos
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Veiculo'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+    post:
+      summary: register a new vehicle
+      description: Adds a new vehicle to the system
+      operationId: novo_veiculo
+      requestBody:
+        description: New vehicle to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoVeiculo'
+      responses:
+        "201":
+          description: vehicle created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing vehicle already exists
+  /veiculos/{matricula}:
+    get:
+      summary: gets the vehicle with matching id
+      description: get an vehicle from its vehicle plate
+      operationId: obtem_um_veiculo_por_codigo
+      parameters:
+      - name: matricula
+        in: path
+        description: identification plate of the registered vehicle
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Veiculo'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+  /veiculos/{matricula}/malestacionado:
+    get:
+      summary: indicates that the vehicles is not correcly parked
+      description: register an incorrect parking
+      operationId: veiculo_mal_estacionado
+      parameters:
+      - name: matricula
+        in: path
+        description: identification plate of the registered vehicle
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: information registered sucessfully
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+  /veiculos/{lat}/{long}:
+    get:
+      summary: gets the vehicle with matching id
+      description: get the list of vehicles within an location radio
+      operationId: obtem_um_veiculo_por_localizacao
+      parameters:
+      - name: lat
+        in: path
+        description: GPS latitude
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+      - name: long
+        in: path
+        description: GPS longitude
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+      - name: raio
+        in: query
+        description: raio
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Veiculo'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+  /veiculos/{id}:
+    get:
+      summary: gets the vehicle with matching id
+      description: get an vehicle from its vehicle id
+      operationId: obtem_um_veiculo
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered vehicle
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Veiculo'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+    put:
+      summary: updates an vehicle
+      description: Updates vehicle info
+      operationId: alterar_um_veiculo
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered vehicle to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: New vehicle data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoVeiculo'
+      responses:
+        "200":
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Veiculo'
+        "400":
+          description: invalid input, object invalid
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrator
+    delete:
+      description: deletes an vehicle
+      operationId: eliminar_um_veiculo
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered vehicle to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: vehicle deleted
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrator
+  /estacionamentos:
+    get:
+      summary: gets all regestered parkings
+      description: Lista todos os estacionamentos registados na base de dados
+      operationId: lista_todos_estacionamentos
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estacionamento'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+    post:
+      summary: register a new parking
+      description: Adds a new parking to the system
+      operationId: novo_estacionamento
+      requestBody:
+        description: New parking to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoEstacionamento'
+      responses:
+        "201":
+          description: parking created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing parking already exists
+  /estacionamentos/{lat}/{long}:
+    get:
+      summary: gets the parking with matching id
+      description: get the list of parkings within an location radio
+      operationId: obtem_um_estacionamento_por_localizacao
+      parameters:
+      - name: lat
+        in: path
+        description: GPS latitude
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+      - name: long
+        in: path
+        description: GPS longitude
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+      - name: raio
+        in: query
+        description: raio
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estacionamento'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+  /estacionamentos/{id}:
+    get:
+      summary: gets the parking with matching id
+      description: get an parking from its parking id
+      operationId: obtem_um_estacionamento
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered parking
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Estacionamento'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - funcionario
+    put:
+      summary: updates an parking
+      description: Updates parking info
+      operationId: alterar_um_estacionamento
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered parking to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: New parking data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoEstacionamento'
+      responses:
+        "200":
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Estacionamento'
+        "400":
+          description: invalid input, object invalid
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrator
+    delete:
+      description: deletes an parking
+      operationId: eliminar_um_estacionamento
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered parking to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: parking deleted
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrator
+  /minhasreservas:
+    get:
+      summary: gets all regestered reservations
+      description: Lista todas as reservas registadas na base de dados para o utilizador
+        autenticado
+      operationId: lista_todas_reservas_por_utilizador
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reserva'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - utilizador
+  /reservas:
+    get:
+      summary: gets all regestered reservations
+      description: Lista todas as reservas registadas na base de dados
+      operationId: lista_todas_reservas
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reserva'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrador
+    post:
+      summary: register a new reservation
+      description: Adds a new reservation to the system
+      operationId: nova_reserva
+      requestBody:
+        description: New reservation to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoReserva'
+      responses:
+        "201":
+          description: reservation created
+        "400":
+          description: invalid input, object invalid
+        "409":
+          description: an existing reservation already exists
+      security:
+      - BearerAuth:
+        - utilizador
+  /reservas/{id}/checkout:
+    get:
+      summary: Do the checkou to the selected reservation
+      description: checkout the reservation
+      operationId: checkout
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered reservation
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "203":
+          description: Checkout successful
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - utilizador
+  /reservas/{id}/custoatual:
+    get:
+      summary: gets the current reservation cost
+      description: gets the calculated cost for the reservation
+      operationId: custoAtualAluguer
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered reservation
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustoReserva'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - utilizador
+  /reservas/{id}:
+    get:
+      summary: gets the reservation with matching id
+      description: get an reservation from its reservation id
+      operationId: obtem_um_reserva
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered reservation
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reserva'
+        "400":
+          description: bad input parameter
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrador
+        - utilizador
+    put:
+      summary: updates an reservation
+      description: Updates reservation info
+      operationId: alterar_um_reserva
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered reservation to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: New reservation data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistoReserva'
+      responses:
+        "200":
+          description: item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        "400":
+          description: invalid input, object invalid
+        "403":
+          description: Forbidden. UnauthorizedError
+        "404":
+          description: Not found
+      security:
+      - BearerAuth:
+        - administrator
+    delete:
+      description: deletes an reservation
+      operationId: eliminar_um_reserva
+      parameters:
+      - name: id
+        in: path
+        description: id of the registered reservation to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: reservation deleted
+        "403":
+          description: Forbidden. UnauthorizedError
+      security:
+      - BearerAuth:
+        - administrator
+components:
+  schemas:
+    Utilizador:
+      required:
+      - _id
+      - email
+      - estadoRegisto
+      - nome
+      - role
+      - username
+      type: object
+      properties:
+        _id:
+          type: object
+          format: uuid
+          example: 5e077c144de4214f407d42c9
+        nome:
+          type: string
+          example: Rui Rodrigues
+        username:
+          type: string
+          example: a10212
+        email:
+          type: string
+          example: a10212@alunos.ipca.pt
+        estadoRegisto:
+          type: array
+          items:
+            type: object
+            format: string
+            example: ativo
+        role:
+          type: string
+          enum:
+          - cliente
+          - functionario
+          - administrador
+        manufacturer:
+          $ref: '#/components/schemas/Utilizador'
+    Login:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          example: a10212
+        password:
+          type: string
+          example: _THE_PASSWORD
+        manufacturer:
+          $ref: '#/components/schemas/Login'
+    AuthInfo:
+      required:
+      - token
+      - utilizador
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTA3N2MxNDRkZTQyMTRmNDA3ZDQyYzkiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhbHVub3MuaXBjYS5wdCIsIm5vbWUiOiJSdWkgUm9kcmlndWVzIiwiZXhwIjoxNTgxNDM4MTAwLCJpYXQiOjE1ODA4MzMzMDB9.NT-23hjPcvy3SczJLk7c18IdD1yaGS_aRDExsg52elk
+        utilizador:
+          $ref: '#/components/schemas/Utilizador'
+        manufacturer:
+          $ref: '#/components/schemas/AuthInfo'
+    RegistoUtilizador:
+      required:
+      - dadosPassword
+      - email
+      - nome
+      - role
+      - username
+      type: object
+      properties:
+        nome:
+          type: string
+          example: Rui Rodrigues
+        username:
+          type: string
+          example: a10212
+        email:
+          type: string
+          example: a10212@alunos.ipca.pt
+        role:
+          type: array
+          items:
+            type: object
+            format: string
+            example: administrador
+        password:
+          type: string
+          example: THE_PASSWORD
+        manufacturer:
+          $ref: '#/components/schemas/RegistoUtilizador'
+    Veiculo:
+      required:
+      - SOCBateria
+      - _id
+      - codigo
+      - designacao
+      - localizacao
+      type: object
+      properties:
+        _id:
+          type: object
+          format: uuid
+          example: 5e077c144de4214f407d42c9
+        designacao:
+          type: string
+          example: Trotinete
+        codigo:
+          type: string
+          example: 56-HA-00
+        SOCBateria:
+          type: number
+          example: 85
+        localizacao:
+          $ref: '#/components/schemas/Coordinates'
+        manufacturer:
+          $ref: '#/components/schemas/Veiculo'
+    RegistoVeiculo:
+      required:
+      - SOCBateria
+      - codigo
+      - designacao
+      - localizacao
+      type: object
+      properties:
+        designacao:
+          type: string
+          example: Trotinete
+        codigo:
+          type: string
+          example: 56-HA-00
+        SOCBateria:
+          type: number
+          example: 85
+        localizacao:
+          $ref: '#/components/schemas/Coordinates'
+        manufacturer:
+          $ref: '#/components/schemas/RegistoVeiculo'
+    Estacionamento:
+      required:
+      - _id
+      - capacidade
+      - localizacao
+      - nome
+      type: object
+      properties:
+        _id:
+          type: object
+          format: uuid
+          example: 5e077c144de4214f407d42c9
+        nome:
+          type: string
+          example: IPCA
+        capacidade:
+          type: number
+          example: 85
+        localizacao:
+          $ref: '#/components/schemas/Coordinates'
+        manufacturer:
+          $ref: '#/components/schemas/Estacionamento'
+    RegistoEstacionamento:
+      required:
+      - capacidade
+      - localizacao
+      - nome
+      type: object
+      properties:
+        nome:
+          type: string
+          example: IPCA
+        capacidade:
+          type: number
+          example: 85
+        localizacao:
+          $ref: '#/components/schemas/Coordinates'
+        manufacturer:
+          $ref: '#/components/schemas/RegistoEstacionamento'
+    Reserva:
+      required:
+      - _id
+      - codVeiculo
+      - dataCheckin
+      - dataCheckout
+      - metodoAluguer
+      - userId
+      type: object
+      properties:
+        _id:
+          type: object
+          format: uuid
+          example: 5e077c144de4214f407d42c9
+        dataCheckin:
+          type: string
+          example: 02/02/2020 08:50
+        dataCheckout:
+          type: string
+          example: 02/02/2020 09:50
+        codVeiculo:
+          type: string
+          example: 56-HA-00
+        userId:
+          type: object
+          format: uuid
+          example: 5e077c144de4214f407d42c9
+        metodoAluguer:
+          type: string
+          enum:
+          - minuto
+          - hora
+          - prePago1Hora
+          - prePago2Horas
+          - prePagoDia
+        manufacturer:
+          $ref: '#/components/schemas/Reserva'
+    RegistoReserva:
+      required:
+      - codVeiculo
+      - dataCheckin
+      - dataCheckout
+      - metodoAluguer
+      type: object
+      properties:
+        dataCheckin:
+          type: string
+          example: 02/02/2020 08:50
+        dataCheckout:
+          type: string
+          example: 02/02/2020 09:50
+        codVeiculo:
+          type: string
+          example: 56-HA-00
+        metodoAluguer:
+          type: string
+          enum:
+          - minuto
+          - hora
+          - prePago1Hora
+          - prePago2Horas
+          - prePagoDia
+        manufacturer:
+          $ref: '#/components/schemas/RegistoReserva'
+    CustoReserva:
+      required:
+      - aluguerId
+      - checkin
+      - checkout
+      - custoAtualAluguer
+      - metodoAluguer
+      - timeElapsed
+      type: object
+      properties:
+        aluguerId:
+          type: object
+          format: uuid
+          example: 5e077c144de4214f407d42c9
+        checkin:
+          type: string
+          example: 02/02/2020 08:50
+        checkout:
+          type: string
+          example: 02/02/2020 09:50
+        timeElapsed:
+          type: number
+          example: 503
+        metodoAluguer:
+          type: string
+          enum:
+          - minuto
+          - hora
+          - prePago1Hora
+          - prePago2Horas
+          - prePagoDia
+        custoAtualAluguer:
+          type: number
+          example: 5.3
+        manufacturer:
+          $ref: '#/components/schemas/CustoReserva'
+    Coordinates:
+      required:
+      - lat
+      - long
+      type: object
+      properties:
+        lat:
+          type: number
+          example: 41.536578
+        long:
+          type: number
+          example: -8.627915
+        manufacturer:
+          $ref: '#/components/schemas/Coordinates'
